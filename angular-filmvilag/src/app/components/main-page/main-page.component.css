@@ -1,0 +1,44 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .mat-tab-group {
+    width: 400px;
+  }
+  
+  .mat-tab-body-content {
+    padding: 20px;
+  }
+  
+  button[mat-menu-trigger] {
+    background-color: #f44336;
+    color: white;
+    font-weight: bold;
+  }
+  
+  button[mat-menu-trigger]:hover {
+    background-color: #e53935;
+  }
+  
+  button[mat-menu-item] {
+    color: #333;
+  }
+  
+  button[mat-menu-item]:hover {
+    background-color: #eee;
+  }
+  .tab-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .left-aligned {
+    text-align: left;
+  }
+  
+  
+  
+  
+  
