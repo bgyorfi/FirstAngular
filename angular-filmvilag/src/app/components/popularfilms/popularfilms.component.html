@@ -1,14 +1,13 @@
 <div class="container">
-    <div class="row">
-        <ng-container *ngFor="let film of popularFilms">
-            <div class="col-md-3">
-              <div class="card mb-3">
-                <img [src]="getPosterUrl(film.poster_path)" alt="Film kép">
-                <div class="image-title">{{ film.title }}
-              </div>
-            </div>
+  <div class="row">
+    <ng-container *ngFor="let film of popularFilms">
+      <div class="col-md-3">
+        <div class="card mb-3" (click)="viewFilmDetails(film.id)">
+          <img [src]="getPosterUrl(film.poster_path)" alt="Film kép">
+          <div class="image-title">{{ film.title }}</div>
         </div>
-      </ng-container>
-    </div>
+      </div>
+    </ng-container>
   </div>
-  <mat-paginator [length]="popularFilms.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="paginatorChanged($event)"></mat-paginator>
+</div>
+<mat-paginator [length]="popularFilms.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="paginatorChanged($event)"></mat-paginator>

@@ -4,6 +4,8 @@ import { Result } from 'src/app/models/popularfilm';
 import { environment } from 'src/app/environment';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ViewChild } from '@angular/core';
+import { FilmDetailsService } from 'src/app/services/film-details.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,8 +19,11 @@ export class PopularFilmsComponent implements OnInit {
   pageIndex = "1";
   pageSize = 5;
 
-  displayedColumns: string[] = ['poster', 'title', 'release_date'];
-  constructor(private popularFilmsService: PopularFilms) { }
+  constructor(
+    private popularFilmsService: PopularFilms,
+    private filmDetailsService: FilmDetailsService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     console.info('PopularFilmsComponent OnInit.');
@@ -44,5 +49,12 @@ export class PopularFilmsComponent implements OnInit {
   getPosterUrl(posterPath: string): string {
     console.log(posterPath)
     return environment.imagePath + posterPath;
+  }
+
+  viewFilmDetails(filmId: number): void {
+    this.filmDetailsService.getFilmDetails(filmId).subscribe((details) => {
+      // Átirányítás a részletező nézetre, ahol megjelennek a film adatai és szereplői
+      this.router.navigate(['/film-details', filmId], { state: { details } });
+    });
   }
 }

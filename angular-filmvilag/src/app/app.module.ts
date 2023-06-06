@@ -8,18 +8,21 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { AppRoutingModule } from './app-routing.module';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { PopularFilmsComponent } from './components/popularfilms/popularfilms.component';
-
+import { FilmDetailsComponent } from './components/film-details/film-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
-    PopularFilmsComponent
+    PopularFilmsComponent,
+    FilmDetailsComponent,
+    SafeUrlPipe
   ],
   imports: [
     BrowserModule,
@@ -30,9 +33,11 @@ import { PopularFilmsComponent } from './components/popularfilms/popularfilms.co
     MatTableModule,
     MatIconModule,
     HttpClientModule,
-    MatPaginatorModule 
+    MatPaginatorModule,
+    AppRoutingModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+}

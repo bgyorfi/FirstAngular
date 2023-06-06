@@ -1,0 +1,23 @@
+<div class="container">
+    <div *ngIf="details">
+      <h1>{{ details.title }}</h1>
+      <img [src]="getPosterUrl(details.poster_path)" alt="Film kép">
+      <p>{{ details.release_date | date }}</p>
+      <p>{{ details.overview }}</p>
+    </div>
+  
+    <div *ngIf="credits">
+      <h2>Szereplők:</h2>
+      <div *ngFor="let cast of credits.crew">
+        <div *ngIf="cast.known_for_department === 'Acting'">
+          <p>{{ cast.name }}</p>
+          <p>{{ cast.character }}</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="video">
+        <h2>Előzetes:</h2>
+        <iframe width="560" height="315" [src]="video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+  </div>
+  
