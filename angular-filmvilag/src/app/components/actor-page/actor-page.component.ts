@@ -12,40 +12,40 @@ import { Cast, MediaType } from 'src/app/models/actor';
 })
 export class ActorPageComponent {
 
-  actorDetails: ActorDeteils | undefined;
-  actorMovieCast : Cast[] = [];
-  actorTvCast : Cast[] = [];
+  actorDetails: ActorDeteils | undefined; // Színész részletei
+  actorMovieCast: Cast[] = []; // Színész filmekben való szereplései
+  actorTvCast: Cast[] = []; // Színész TV-sorozatokban való szereplései
+
   constructor(
-    private route: ActivatedRoute,
-    private actorService: ActorService
+    private route: ActivatedRoute, // Aktuális útválasztás
+    private actorService: ActorService // Színész szolgáltatás
   ) { }
 
-  id: number = 0;
+  id: number = 0; // Színész azonosítója
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.getActorDetails(this.id);
-      this.getActorKnownFor(this.id);
+      this.id = params['id']; // Az útvonal paraméteréből kinyerjük a színész azonosítót
+      this.getActorDetails(this.id); // Lekérdezzük a színész részleteit
+      this.getActorKnownFor(this.id); // Lekérdezzük a színész ismert munkáit
     });
-    
   }
 
   getActorDetails(actorId: number): void {
     this.actorService.getActorById(actorId).subscribe((details) => {
-      this.actorDetails = details;
+      this.actorDetails = details; // Beállítjuk a színész részleteit
     });
   }
 
-  getActorKnownFor(actordId: number){
-    this.actorService.getActorCredits(actordId).subscribe((cast) => {
+  getActorKnownFor(actorId: number) {
+    this.actorService.getActorCredits(actorId).subscribe((cast) => {
+      // Szűrjük a szerepléseket filmre vagy TV-sorozatra
       this.actorMovieCast = cast.filter((item) => item.media_type === MediaType.Movie);
       this.actorTvCast = cast.filter((item) => item.media_type === MediaType.Tv);
     });
-
   }
 
   getActorProfileUrl(profilePath: string): string {
-    return environment.imagePath + profilePath;
+    return environment.imagePath + profilePath; // Visszaadjuk a színész profil képének elérési útját
   }
 }

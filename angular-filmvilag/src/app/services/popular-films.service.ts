@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Films, Result} from "../models/film"
+import { Films, Result } from "../models/film";
 import { environment } from '../environment';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,12 @@ export class PopularFilms {
 
   private url = environment.apiUrl + 'movie/popular';
 
-  getPopularFilms(pageindex: string): Observable<Films>{
+  /**
+   * Az aktuálisan népszerű filmeket lekéri.
+   * @param pageindex Az oldalszám.
+   * @returns Az aktuálisan népszerű filmeket tartalmazó Observable objektum.
+   */
+  getPopularFilms(pageindex: string): Observable<Films> {
 
     const headers = new HttpHeaders({
       'Accept': 'application/json',
@@ -23,10 +28,11 @@ export class PopularFilms {
     let params = new HttpParams();
     params = params.append('page', pageindex);
 
-    const array : Observable<Result[]> = this.http.get<Films>(environment.apiUrl, { headers }).pipe(
+    // A teljes válasz helyett csak a films.results tömböt adjuk vissza
+    const array: Observable<Result[]> = this.http.get<Films>(environment.apiUrl, { headers }).pipe(
       map(response => response.results)
     );
 
     return this.http.get<Films>(this.url, { headers, params }).pipe();
-}
+  }
 }

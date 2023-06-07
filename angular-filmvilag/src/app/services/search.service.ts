@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environment';
-import { Result, Films} from '../models/film';
-import { TvShow, TvShowsResponse} from '../models/show';
-import { map, tap } from 'rxjs/operators';
+import { Result, Films } from '../models/film';
+import { TvShow, TvShowsResponse } from '../models/show';
+import { map } from 'rxjs/operators';
 import { Actors } from '../models/actor';
 
 @Injectable({
@@ -12,11 +12,17 @@ import { Actors } from '../models/actor';
 })
 export class SearchService {
 
-  private url = environment.apiUrl
-  constructor(private http: HttpClient) {
-  }
+  private url = environment.apiUrl;
 
-  getMoviesBySearch(pageindex: string = '0',param: string): Observable<Films>{
+  constructor(private http: HttpClient) {}
+
+  /**
+   * Filmek keresése az adott paraméter alapján.
+   * @param pageindex Az oldalszám.
+   * @param param A keresési paraméter.
+   * @returns A találatokat tartalmazó Observable objektum.
+   */
+  getMoviesBySearch(pageindex: string = '0', param: string): Observable<Films> {
 
     const headers = new HttpHeaders({
       'Accept': 'application/json',
@@ -31,7 +37,13 @@ export class SearchService {
     return this.http.get<Films>(queryUrl, { headers, params }).pipe();
   }
 
-  getShowBySearch(pageindex: string = '0',param: string): Observable<TvShowsResponse>{
+  /**
+   * TV műsorok keresése az adott paraméter alapján.
+   * @param pageindex Az oldalszám.
+   * @param param A keresési paraméter.
+   * @returns A találatokat tartalmazó Observable objektum.
+   */
+  getShowBySearch(pageindex: string = '0', param: string): Observable<TvShowsResponse> {
 
     const headers = new HttpHeaders({
       'Accept': 'application/json',
@@ -46,7 +58,13 @@ export class SearchService {
     return this.http.get<TvShowsResponse>(queryUrl, { headers, params }).pipe();
   }
 
-  getActorBySearch(pageindex: string = '0',param: string): Observable<Actors>{
+  /**
+   * Színészek keresése az adott paraméter alapján.
+   * @param pageindex Az oldalszám.
+   * @param param A keresési paraméter.
+   * @returns A találatokat tartalmazó Observable objektum.
+   */
+  getActorBySearch(pageindex: string = '0', param: string): Observable<Actors> {
 
     const headers = new HttpHeaders({
       'Accept': 'application/json',

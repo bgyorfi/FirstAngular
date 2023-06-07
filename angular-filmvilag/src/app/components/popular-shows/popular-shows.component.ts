@@ -13,45 +13,44 @@ import { TvShow } from 'src/app/models/show';
   styleUrls: ['./popular-shows.component.css']
 })
 export class PopularShowsComponent implements OnInit {
-  shows : TvShow[] = [];
-  pageIndex = "1";
-  pageSize = 0;
-  totalvalue = 0;
-  
+  shows: TvShow[] = []; // Népszerű sorozatok
+  pageIndex = "1"; // Oldalszám
+  pageSize = 0; // Oldalméret
+  totalvalue = 0; // Összes elem száma
+
   constructor(
-    private showService: ShowService,
-    private router: Router,
+    private showService: ShowService, // Sorozat szolgáltatás
+    private router: Router, // Router szolgáltatás
   ) { }
 
   ngOnInit(): void {
-    this.getPopularShows();
+    this.getPopularShows(); // Népszerű sorozatok lekérése
   }
 
-  paginatorChanged(event : any){
-    this.pageIndex = event.pageIndex + 1;
-    this.getPopularShows();
+  paginatorChanged(event: any) {
+    this.pageIndex = event.pageIndex + 1; // Az oldalszám beállítása
+    this.getPopularShows(); // Népszerű sorozatok lekérése
   }
 
   getPopularShows(): void {
-    
     this.shows = [];
-    this.showService.getPopularTvShwows(this.pageIndex)
+    this.showService.getPopularTvShows(this.pageIndex)
       .subscribe(shows => {
-        this.shows = shows.results;
-        this.totalvalue = shows.total_results
-        this.pageSize = shows.results.length
+        this.shows = shows.results; // Népszerű sorozatok beállítása
+        this.totalvalue = shows.total_results; // Összes elem számának beállítása
+        this.pageSize = shows.results.length; // Oldalméret beállítása
       });
   }
 
   getPosterUrl(posterPath: string): string {
-    console.log(posterPath)
-    return environment.imagePath + posterPath;
+    console.log(posterPath);
+    return environment.imagePath + posterPath; // Visszaadjuk a sorozat poszterének elérési útját
   }
 
   viewShowDetails(showId: number): void {
-     this.showService.getShowDetailsById(showId).subscribe((details) => {
-       // Átirányítás a részletező nézetre, ahol megjelennek a film adatai és szereplői
-       this.router.navigate(['/show-detail', showId], { state: { details } });
-     });
+    this.showService.getShowDetailsById(showId).subscribe((details) => {
+      // Átirányítás a részletező nézetre, ahol megjelennek a sorozat adatai és szereplői
+      this.router.navigate(['/show-detail', showId], { state: { details } });
+    });
   }
 }

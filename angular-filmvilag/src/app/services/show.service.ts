@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environment';
-import { map, tap } from 'rxjs/operators';
-import { TvShowsResponse, ShowDetail, ShowCreditResponse} from '../models/show';
+import { map } from 'rxjs/operators';
+import { TvShowsResponse, ShowDetail, ShowCreditResponse } from '../models/show';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,12 @@ export class ShowService {
 
   private url = environment.apiUrl + 'tv';
 
-  getPopularTvShwows(pageindex: string): Observable<TvShowsResponse>{
+  /**
+   * Népszerű TV-műsorok lekérése az oldalszám alapján.
+   * @param pageindex Az oldalszám.
+   * @returns A népszerű TV-műsorokat tartalmazó Observable objektum.
+   */
+  getPopularTvShows(pageindex: string): Observable<TvShowsResponse> {
 
     const headers = new HttpHeaders({
       'Accept': 'application/json',
@@ -23,11 +28,17 @@ export class ShowService {
 
     let params = new HttpParams();
     params = params.append('page', pageindex);
-    let popularUrl = this.url + "/popular"
+    let popularUrl = this.url + "/popular";
+    
     return this.http.get<TvShowsResponse>(popularUrl, { headers, params }).pipe();
   }
 
-  getShowDetailsById(id: number): Observable<ShowDetail>{
+  /**
+   * TV-műsor részleteinek lekérése az azonosító alapján.
+   * @param id A TV-műsor azonosítója.
+   * @returns A TV-műsor részleteit tartalmazó Observable objektum.
+   */
+  getShowDetailsById(id: number): Observable<ShowDetail> {
     const headers = new HttpHeaders({
       'Accept': 'application/json',
       'Authorization': `Bearer ${environment.autToken}`
@@ -36,18 +47,21 @@ export class ShowService {
     let detailsurl = this.url + `/${id}`;
 
     return this.http.get<ShowDetail>(detailsurl, { headers }).pipe();
-
   }
 
-  getShowCredits(id: number): Observable<ShowCreditResponse>{
+  /**
+   * TV-műsor stáblistájának lekérése az azonosító alapján.
+   * @param id A TV-műsor azonosítója.
+   * @returns A TV-műsor stáblistáját tartalmazó Observable objektum.
+   */
+  getShowCredits(id: number): Observable<ShowCreditResponse> {
     const headers = new HttpHeaders({
       'Accept': 'application/json',
       'Authorization': `Bearer ${environment.autToken}`
     });
 
-    let creditsurl = this.url + `/${id}` + "/credits"
+    let creditsurl = this.url + `/${id}` + "/credits";
     
-    return this.http.get<ShowCreditResponse>(creditsurl, { headers}).pipe(); 
+    return this.http.get<ShowCreditResponse>(creditsurl, { headers }).pipe(); 
   }
-
 }

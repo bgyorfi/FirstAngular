@@ -11,56 +11,62 @@ import { SearchService } from 'src/app/services/search.service';
   styleUrls: ['./actor-list.component.css']
 })
 export class ActorListComponent {
-  actors: Actor[] = []
-  pageIndex = "1";
-  pageSize = 0;
-  totalvalue = 0;
-  searchKeyword: string = "";
+  actors: Actor[] = []; // Színészek tömbje
+  pageIndex = "1"; // Aktuális oldalszám
+  pageSize = 0; // Oldalméret
+  totalvalue = 0; // Elemek összes száma
+  searchKeyword: string = ""; // Keresési kulcsszó
 
   constructor(
-    private actorService: ActorService,
-    private router: Router,
-    private searchService: SearchService
+    private actorService: ActorService, // Színész szolgáltatás
+    private router: Router, // Router példány
+    private searchService: SearchService // Keresési szolgáltatás
   ) { }
 
   ngOnInit(): void {
-    this.getPopularActor();
+    this.getPopularActor(); // Alkalmazás betöltésekor népszerű színészek lekérése
   }
 
-  paginatorChanged(event : any){
-    this.pageIndex = event.pageIndex + 1;
-    this.getPopularActor();
+  paginatorChanged(event: any) {
+    this.pageIndex = event.pageIndex + 1; // Oldalszám beállítása a lapozó változása alapján
+    this.getPopularActor(); // Újra lekérjük a színészeket az új oldalszám alapján
   }
 
-  getPopularActor(): void{
-    this.actors = [];
-    this.actorService.getActorList(this.pageIndex).subscribe(actors =>
-      {
-        this.actors = actors.results
-        this.totalvalue = actors.total_results
-        this.pageSize = actors.results.length
-      })
+  getPopularActor(): void {
+    this.actors = []; // Törljük a színészek tömbjét
+    this.actorService.getActorList(this.pageIndex).subscribe(actors => {
+      // Az elérhető színészek eredményeit beállítjuk a színészek tömbjébe
+      this.actors = actors.results;
+      this.totalvalue = actors.total_results; // Beállítjuk az összes elem számát
+      this.pageSize = actors.results.length; // Beállítjuk az oldalméretet
+    });
   }
 
   getPosterUrl(profile_path: string): string {
-    console.log(profile_path)
-    return environment.imagePath + profile_path;
+    return environment.imagePath + profile_path; // Visszaadjuk a kép teljes elérési útját
   }
 
   viewActorDetails(actorId: number): void {
     this.actorService.getActorById(actorId).subscribe((details) => {
+      // Átirányítjuk az útválasztót az adott színész oldalára a színész azonosítóval és az adatokkal
       this.router.navigate(['/actor-page', actorId], { state: { details } });
     });
   }
 
-  getActorsByParam(paging: boolean = false){
-    if (!paging) this.pageIndex = '1'
-    this.actors = [];
+  getActorsByParam(paging: boolean = false) {
+    if (!paging) {
+      this.pageIndex = '1'; // Ha nem lapozunk, akkor az oldalszámot 1-re állítjuk
+    }
+    this.actors = []; // Törljük a színészek tömbjét
     this.searchService.getActorBySearch(this.pageIndex, this.searchKeyword)
-    .subscribe(films => {
-      this.actors = films.results;
-      this.totalvalue = films.total_results
-      
-    });
+      .subscribe(films => {
+        this.actors = films.results; // Az elérhető színészek eredményeit beállítjuk a színészek tömbjébe
+        this.totalvalue = films.total_results; // Beállítjuk az összes elem számát
+      });
   }
 }
+
+
+
+
+

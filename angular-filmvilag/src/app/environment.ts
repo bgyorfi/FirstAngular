@@ -1,3 +1,11 @@
+// Ez a konfigurációs objektum a következő kulcs-érték párokat tartalmazza:
+
+// production: A gyártási környezet jelzője (true vagy false).
+// apiUrl: Az API végpont URL-je.
+// apiKey: Az API kulcsa.
+// autToken: Az autentikációs token.
+// imagePath: Az alapértelmezett képek elérési útja a TMDB szolgáltatásban.
+// defaultImage: Az alapértelmezett kép URL-je.
 export const environment = {
     production: false,
     apiUrl: 'https://api.themoviedb.org/3/',

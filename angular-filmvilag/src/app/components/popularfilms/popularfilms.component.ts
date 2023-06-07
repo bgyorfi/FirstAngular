@@ -14,59 +14,55 @@ import { SearchService} from 'src/app/services/search.service';
   styleUrls: ['./popularfilms.component.css']
 })
 export class PopularFilmsComponent implements OnInit {
-
-  films: Result[] = [];
-  pageIndex = "1";
-  pageSize = 0;
-  totalvalue = 0;
-  searchKeyword: string = "";
-
+  films: Result[] = []; // Népszerű filmek
+  pageIndex = "1"; // Oldalszám
+  pageSize = 0; // Oldalméret
+  totalvalue = 0; // Összes elem száma
+  searchKeyword: string = ""; // Keresőkulcsszó
 
   constructor(
-    private popularFilmsService: PopularFilms,
-    private filmDetailsService: FilmDetailsService,
-    private router: Router,
-    private searchService: SearchService
+    private popularFilmsService: PopularFilms, // Népszerű filmek szolgáltatás
+    private filmDetailsService: FilmDetailsService, // Film részletek szolgáltatás
+    private router: Router, // Router szolgáltatás
+    private searchService: SearchService // Keresés szolgáltatás
   ) { }
 
   ngOnInit(): void {
     console.info('PopularFilmsComponent OnInit.');
-    this.getPopularFilms();
+    this.getPopularFilms(); // Népszerű filmek lekérése
   }
 
-  paginatorChanged(event : any){
-    this.pageIndex = event.pageIndex + 1;
-    if(this.searchKeyword.length === 0)
-      this.getPopularFilms();
+  paginatorChanged(event: any) {
+    this.pageIndex = event.pageIndex + 1; // Az oldalszám beállítása
+    if (this.searchKeyword.length === 0)
+      this.getPopularFilms(); // Népszerű filmek lekérése
     else
-      this.getFilmsByParam(true);
+      this.getFilmsByParam(true); // Filmek lekérése kulcsszóval
   }
 
   getPopularFilms(): void {
-    
     this.films = [];
     this.popularFilmsService.getPopularFilms(this.pageIndex)
       .subscribe(films => {
-        this.films = films.results;
-        this.totalvalue = films.total_results
-        this.pageSize = films.results.length
+        this.films = films.results; // Népszerű filmek beállítása
+        this.totalvalue = films.total_results; // Összes elem számának beállítása
+        this.pageSize = films.results.length; // Oldalméret beállítása
       });
   }
 
-  getFilmsByParam(paging: boolean = false){
-    if (!paging) this.pageIndex = '1'
+  getFilmsByParam(paging: boolean = false) {
+    if (!paging) this.pageIndex = '1';
     this.films = [];
     this.searchService.getMoviesBySearch(this.pageIndex, this.searchKeyword)
-    .subscribe(films => {
-      this.films = films.results;
-      this.totalvalue = films.total_results
-      
-    });
+      .subscribe(films => {
+        this.films = films.results; // Filmek beállítása kulcsszóval
+        this.totalvalue = films.total_results; // Összes elem számának beállítása
+      });
   }
 
   getPosterUrl(posterPath: string): string {
-    console.log(posterPath)
-    return environment.imagePath + posterPath;
+    console.log(posterPath);
+    return environment.imagePath + posterPath; // Visszaadjuk a film poszterének elérési útját
   }
 
   viewFilmDetails(filmId: number): void {
@@ -76,3 +72,4 @@ export class PopularFilmsComponent implements OnInit {
     });
   }
 }
+
