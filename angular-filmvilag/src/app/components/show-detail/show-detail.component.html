@@ -1,0 +1,45 @@
+<div *ngIf="details" class="container">
+  <div class="header">
+    <img [src]="getPosterUrl(details.poster_path)" alt="Show kép" class="show-poster">
+    <div class="header-content">
+      <h1>{{ details.name }}</h1>
+      <p class="tagline">{{ details.tagline }}</p>
+      <p class="overview">{{ details.overview }}</p>
+    </div>
+  </div>
+  
+  <div class="details">
+    <div class="detail-item">
+      <p class="detail-label">First Air Date:</p>
+      <p>{{ details.first_air_date | date }}</p>
+    </div>
+    <div class="detail-item">
+      <p class="detail-label">Last Air Date:</p>
+      <p>{{ details.last_air_date | date }}</p>
+    </div>
+    <div class="detail-item">
+      <p class="detail-label">Number of Seasons:</p>
+      <p>{{ details.number_of_seasons }}</p>
+    </div>
+    <div class="detail-item">
+      <p class="detail-label">Number of Episodes:</p>
+      <p>{{ details.number_of_episodes }}</p>
+    </div>
+    <div class="detail-item">
+      <p class="detail-label">Genres:</p>
+      <p>{{ getGenresString(details.genres) }}</p>
+    </div>
+    <div class="detail-item">
+      <p class="detail-label">Status:</p>
+      <p>{{ details.status }}</p>
+    </div>
+    <div class="detail-item">
+      <p class="detail-label">Original Language:</p>
+      <p>{{ details.original_language }}</p>
+    </div>
+    <div class="detail-item">
+      <p class="detail-label">Homepage:</p>
+      <a href="{{ details.homepage }}" target="_blank">{{ details.homepage }}</a>
+    </div>
+  </div>
+</div>

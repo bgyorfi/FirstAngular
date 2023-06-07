@@ -1,0 +1,16 @@
+
+<!-- <input matInput placeholder="Kulcsszó" [ngModel]="searchKeyword" (ngModelChange)="searchKeyword = $event" (keyup.enter)="getFilmsByParam()"> -->
+
+<div class="container">
+  <div class="row">
+    <ng-container *ngFor="let show of shows">
+      <div class="col-md-3">
+        <div class="card mb-3" (click)="viewShowDetails(show.id)">
+          <img [src]="getPosterUrl(show.poster_path)" alt="Show kép">
+          <div class="image-title">{{ show.original_name }}</div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<mat-paginator [length]="totalvalue" [pageSize]="pageSize" (page)="paginatorChanged($event)"></mat-paginator>

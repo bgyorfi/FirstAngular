@@ -1,0 +1,45 @@
+<div *ngIf="actorDetails" class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <img [src]="getActorProfileUrl(actorDetails.profile_path)" alt="Actor kép" class="actor-image">
+      </div>
+      <div class="col-md-8">
+        <h2 class="actor-name">{{ actorDetails.name }}</h2>
+        <div class="actor-details">
+          <p><strong>Gender:</strong> {{ actorDetails.gender === 2 ? 'Male' : 'Female' }}</p>
+          <p><strong>Birthday:</strong> {{ actorDetails.birthday | date }}</p>
+          <p><strong>Place of birth:</strong> {{ actorDetails.place_of_birth }}</p>
+        </div>
+        <div class="actor-biography">
+          <h3 class="section-title">Biography</h3>
+          <p>{{ actorDetails.biography }}</p>
+        </div> 
+    </div>
+    <div class="actor-known-for">
+        <h3 class="section-title">Known for:</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Character</th>
+              <th>Media Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let movie of actorMovieCast">
+                <td>
+                    <a [routerLink]="['/film-details', movie.id]">{{ movie.title }}</a>
+                  </td>
+              <td>{{ movie.character }}</td>
+              <td>{{ movie.media_type }}</td>
+            </tr>
+            <tr *ngFor="let tvShow of actorTvCast">
+              <td>{{ tvShow.name }}</td>
+              <td>{{ tvShow.character }}</td>
+              <td>{{ tvShow.media_type }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+  

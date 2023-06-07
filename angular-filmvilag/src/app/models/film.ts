@@ -1,4 +1,4 @@
-export type Pokedex = {
+export type Films = {
     page:          number;
     results:       Result[];
     total_pages:   number;

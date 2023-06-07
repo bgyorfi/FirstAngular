@@ -7,7 +7,7 @@ import { Video } from 'src/app/models/videodetails';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-film-details',
+  selector: 'app-film-details', 
   templateUrl: './film-details.component.html',
   styleUrls: ['./film-details.component.css']
 })

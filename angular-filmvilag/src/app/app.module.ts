@@ -10,11 +10,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AppRoutingModule } from './app-routing.module';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { PopularFilmsComponent } from './components/popularfilms/popularfilms.component';
 import { FilmDetailsComponent } from './components/film-details/film-details.component';
+import { PopularShowsComponent } from './components/popular-shows/popular-shows.component';
+import { ActorPageComponent } from './components/actor-page/actor-page.component';
+import { ActorListComponent } from './components/actor-list/actor-list.component';
+import { ShowDetailComponent } from './components/show-detail/show-detail.component';
+import { MatCardModule } from '@angular/material/card';
+
+
 
 @NgModule({
   declarations: [
@@ -22,7 +32,11 @@ import { FilmDetailsComponent } from './components/film-details/film-details.com
     MainPageComponent,
     PopularFilmsComponent,
     FilmDetailsComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    PopularShowsComponent,
+    ActorPageComponent,
+    ActorListComponent,
+    ShowDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +48,12 @@ import { FilmDetailsComponent } from './components/film-details/film-details.com
     MatIconModule,
     HttpClientModule,
     MatPaginatorModule,
-    AppRoutingModule 
+    AppRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatCardModule 
+
   ],
   providers: [],
   bootstrap: [AppComponent]

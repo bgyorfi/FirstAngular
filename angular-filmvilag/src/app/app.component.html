@@ -1,2 +1,9 @@
-<h1>{{title}}</h1>
+<h1 class="title">{{title}}</h1>
+<nav mat-tab-nav-bar class="nav-bar">
+    <a mat-tab-link routerLink="/popular-films" class="tab-link">Filmkereső</a>
+    <a mat-tab-link routerLink="/popular-tvshows" class="tab-link">Sorozatkereső</a>
+    <a mat-tab-link routerLink="/actor-list" class="tab-link">Színészkereső</a>
+</nav>
+      
+
 <router-outlet></router-outlet>
